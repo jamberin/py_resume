@@ -1,0 +1,23 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="James Beringer" content="Resume Site"/>
+	<title>Links | James Beringer</title>
+</head>
+<body>
+	{% extends "pages/page_template.html" %}
+	{% block content %}
+	<div class="content_body">
+		<h1>Links</h1>
+		<p>Below are links to contact me or view my work:
+			<ul class="page_menu">
+				<li><a href="{{ url_for('contact_form_page') }}" title="contact my email">Contact</a> - use the contact form to send me an email</li>
+				<li><a href="https://github.com/jamberin" title="see my github">Github</a> - a link to my github projects</li>
+				<li><a href="https://medium.com/@jamberin" title="link to my blog">Blog</a> - a link to my blog hosted on medium.com</li>
+				<li><a href="https://www.linkedin.com/in/jamberin" title="my linkedin profile">LinkedIn</a> - my linkedin profile</li>
+			</ul>
+		</p>
+	</div>
+	{% endblock %}
+</body>
+</html>

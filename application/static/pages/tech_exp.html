@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="James Beringer" content="Resume Site"/>
+	<title>Resume - Tech Experience | James Beringer</title>
+</head>
+<body>
+	{% extends "pages/page_template.html" %}
+	{% block content %}
+	<div class="content_body">
+		<h1>Technical Experience</h1>
+		<p>Ever since I've been introduced to computers, I've been very passionate about computers and with programming. I've managed to learn a lot through schooling as well as teaching myself. Below you can find the different technologies I've worked with.</p>
+		<h2 id="python">Python</h2>
+		<ul class="page_menu">
+			<li>PyTest - Working with PyTest framework for selenium and API automation testing.</li>
+			<li>Flask - Several web projects that I've worked on have used flask. This site was built using flask.</li>
+		</ul>
+		<br>
+		<h2>Java</h2>
+		<ul class="page_menu">
+			<li>Tomcat - The first iteration of my personal site was built using tomcat and java.  I ultimately ended up abandoning it in favor of a python back ended build.</li>
+			<li>Spam Bot - One small application that I had been working on was a bot to  send marketing emails to a set distribution list. I ended up not using this application as the client decided for an out of the box solution.</li>
+		</ul>
+	</div>
+	{% endblock %}
+</body>
+</html>

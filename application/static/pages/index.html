@@ -1,0 +1,20 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="James Beringer" content="Resume Site"/>
+	<title>Welcome! | James Beringer</title>
+</head>
+<body>
+	{% extends "pages/page_template.html" %}
+	{% block content %}
+	<div class="content_body">
+		<img class="profile" src="{{ url_for('static', filename='resources/profile.jpg') }}" />
+		<h1><<<strong>James William Beringer</strong>>></h1>
+		<h2>Welcome!</h2>
+		<p>This site is dedicated to all of the things I've been working on both professionally and personally.  Please tahe the opportunity to view my <a href="{{ url_for('blog_landing_page') }}">blog</a>, review my <a href="{{ url_for('resume_landing_page') }}">resume</a>, and take a look at my external <a href="{{ url_for('links_landing_page') }}">pages</a>. If you would like to get in contact, please view the <a href="">contact form</a>, or just contact me directly at <a href="mailto:jamberin@gmail.com">jamberin@gmail.com</a>.</p>
+		<h2>About Me</h2>
+		<p>I am currently employed as a QA Automation Engineer at a FinTech in NYC. When I'm not at work, I'll be working on other projects, working through my steam library, or binging something I can stream. Originally from Pittsburgh, I now live in Brooklyn with my cat and girlfriend. For more information on me (or the cat) take a look at my <a href="{{ url_for('about_landing_page') }}">about me</a> page</p>
+	</div>
+	{% endblock %}
+</body>
+</html>

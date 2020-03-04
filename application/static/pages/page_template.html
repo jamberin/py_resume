@@ -1,0 +1,41 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="James Beringer" content="Resume Site"/>
+	<link href="{{ url_for('static', filename='stylesheets/main.css') }}" rel="stylesheet" />
+</head>
+<body>
+	<nav class="cf">
+		<nav class="cf">
+			<ul class="topmenu">
+				<li><a href="{{ url_for('home_page') }}" title="home page" class="{{ home_class }}">Home</a></li>
+				<li><a href="{{ url_for('resume_landing_page') }}" title="Resume and supplemental materials" class="{{ resume_class }}">Resume</a>
+					<ul class="submenu">
+						<li><a href="{{ url_for('resume_download_page') }}" title="view and download resume">Resume Download</a></li>
+						<li><a href="{{ url_for('projects_page') }}" title="all projects">Projects</a></li>
+						<li><a href="{{ url_for('work_exp_page') }}" title="work experience more in depth">Work Experience</a></li>
+						<li><a href="{{ url_for('tech_exp_page') }}" title="technical experience">Tech Experience</a></li>
+					</ul>
+				</li>
+				<li><a href="{{ url_for('blog_landing_page') }}" title="link to my blog" class="{{ blog_class }}">Blog</a></li>
+				<li><a href="{{ url_for('links_landing_page') }}" title="contact us" class="{{ links_class }}">Links</a>
+					<ul class="submenu">
+						<li><a href="{{ url_for('contact_form_page') }}" title="contact my email">Contact</a></li>
+						<li><a href="" title="see my github">Github</a></li>
+						<li><a href="" title="link to my blog">Blog</a></li>
+						<li><a href="" title="my linkedin profile">LinkedIn</a></li>
+					</ul>
+				</li>
+				<li><a href="{{ url_for('about_landing_page') }}" title="more about me" class="{{ about_class }}">About Me</a></li>
+			</ul>
+		</nav>
+	</nav>
+	{% block content %}
+	{% endblock %}
+	<div class="footer_container">
+		<nav class="footer">
+			<p>&copy; 2019 James Beringer | <a href="mailto:jamberin@gmail.com">jamberin@gmail.com</a></p>
+		</nav>
+	</div>
+</body>
+</html>

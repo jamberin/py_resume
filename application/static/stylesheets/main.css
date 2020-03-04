@@ -1,0 +1,220 @@
+html {
+  background: #f0f3bd;
+}
+
+body {
+  font: 100% FreeMono, monospace;
+  line-height: 1.5;
+  width: 70%;
+  margin: 0 auto;
+  padding-bottom: 6em;
+}
+
+h1,
+h2,
+h3 {
+  font-size: 2.4em;
+  font-weight: normal;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+  color: #02c39a;
+}
+
+h2 {
+  font-size: 1.75em;
+}
+
+/* body sizing */
+.content_body h2 {
+  margin-bottom: 0px;
+}
+
+
+/*micro-clearfix by Nicolas Gallagher http://nicolasgallagher.com/micro-clearfix-hack/*/
+/* For modern browsers */
+.cf:before,
+.cf:after {
+  content: "";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+  zoom: 1;
+}
+/*horizontal menu styles*/
+nav {
+  background: #028090;
+  height: 2.3em;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+}
+ul {
+  background: #00a896;
+  height: 2em;
+  width: 100%;
+}
+li {
+  position: relative;
+}
+li a {
+  display: block;
+  line-height: 2em;
+  padding: 0 1em;
+  color: white;
+  text-decoration: none;
+}
+li a:hover,
+.topmenu li:hover > a {
+  background: #02c39a;
+  height: 2em;
+  padding-top: 0.3em;
+  position: relative;
+  top: -0.3em;
+  border-radius: 0.3em 0.3em 0 0;
+}
+.current,
+a:hover.current,
+.topmenu li:hover a.current {
+  background: #02c39a;
+  color: #eee;
+  padding-top: 0.3em;
+  border-radius: 0.3em 0.3em 0 0;
+  position: relative;
+  top: -0.3em;
+  border-bottom: 0.3em solid #028090;
+  cursor: default;
+}
+/*dropdown menu styles*/
+
+ul.submenu {
+  float: none;
+  background: #02c39a;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 2em;
+  left: -9000em;
+  max-height: 0;
+  -webkit-transition: max-height 0.15s ease-in-out;
+  -moz-transition: max-height 0.15s ease-in-out;
+  -o-transition: max-height 0.15s ease-in-out;
+  -ms-transition: max-height 0.15s ease-in-out;
+  transition: max-height 0.15s ease-in-out;
+}
+
+ul.submenu li {
+  float: none;
+}
+
+.topmenu li:hover ul {
+  left: 0;
+  max-height: 10em;
+}
+
+ul.submenu li a {
+  border-bottom: 1px solid white;
+  padding: 0.2em 1em;
+  white-space: nowrap;
+}
+ul.submenu li:last-child a {
+  border-bottom: none;
+}
+ul.submenu li a:hover {
+  background: #05668d;
+  height: 2em;
+  padding-top: 0.2em;
+  top: 0;
+  border-radius: 0;
+}
+ul.page_menu {
+  background: none;
+  list-style-type: circle;
+  padding-left: 20px;
+  float: none;
+}
+ul.page_menu li {
+  float: none;
+  list-style-type: circle;
+}
+ul.page_menu li a {
+  color: #05668d;
+  display:contents;
+  text-decoration: underline;
+}
+ul.page_menu li a:hover {
+  background: none;
+  text-transform: uppercase;
+}
+ul.page_menu li a:active {
+  color: #02c39a;
+}
+
+/* footer styles */
+.footer_container {
+  width: inherit;
+  margin-top: 5px;
+  height: 2em;
+}
+
+.footer { 
+  position: fixed;
+  background: #00a896;
+  bottom: 0px;
+  margin-bottom: 0px;
+  width: inherit;
+  display: block;
+}
+
+.footer p {
+  color: white;
+  position: relative;
+  padding-left: 10px;
+  bottom: 10px;
+}
+
+/* home page custom */
+.profile {
+  height: 15em;
+  float: right;
+  border-radius: 50%;
+}
+
+/* resume page custom */
+.resume_frame {
+  clear: both;
+  width: 100%;
+  height: 75%;
+}
+
+/* contact form custom */
+.contact_form table {
+  width: 100%;
+}
+
+.contact_form input, textarea {
+  width: 100%;
+}
+
+.contact_first_row {
+  width: 20%;
+}
+
+#message {
+  height: 15em;
+  width: 100%;
+}
+
+#send {
+  color: #02c39a;
+  background-color: #05668d;
+  height: 4em;
+}

@@ -1,0 +1,26 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="James Beringer" content="Resume Site"/>
+	<title>James Beringer | Resume - Projects</title>
+</head>
+<body>
+	{% extends "pages/page_template.html" %}
+	{% block content %}
+	<div class="content_body">
+		<h1>Personal Projects</h1>
+		<p>Below list the different personal projects that I've worked on personally outside of the workplace. A brief description may be all I have of the project (or of what I'm willing to share at the moment) or it may include links to the github project or other external links.</p>
+		<h2>Personal Website - Java and Python Versions</h2>
+		<p>I first built a version of this site that was using a tomcat back end with a super basic contact form. I ended up needing to abandon the first version of that since I didn't have the time to manage it. I ended up reworking it, and got a stable version redeployed. Since then, I've learned a lot more about python, and I've been using that for this version of the site.</p>
+		<h2>Catan - Python Application</h2>
+		<p>I started this project because I was trying to play Catan on my android phone and it would constantly crash whenever I would launch the application. I figured I could just start building something that I can adapt to a phone application at some point. So far I've built the core engine that is a light python application that just works with a series of JSON elements. I'm now working on getting that integrated with an HTML element for a simple beta to test all the elements of that on, then I plan on building it into a phone application. I don't really intend on making this widely available, just something I want to build out slowly over time.</p>
+		<h1>Employment Projects</h1>
+		<p>I have worked on a number of projects for the companies I have worked for. Below will be a listing of some of the projects that I've been a part of and what role I had in the project. I will have to keep it discreet since I don't like being sued.</p>
+		<h2>Middle Layer Application - Data Transformation</h2>
+		<p>I was the lead QA on this application which took XML data from an external vendor's service and converted it into data for our internal Hybris system to consume. This had increased complexities when it came to testing due to the use of an external vendor's service, the use of existing systems for the transformation layer of the application, and the testing of both a .NET change and a Hybris change. We managed to get this application in place which enabled a lot of the users to hit the external vendor's service with little to no changes to their ordering work flow.</p>
+		<h2>Locust Performance Testing - Python Framework</h2>
+		<p>I worked alone on building out locust performance testing. I had to build out the framework similar to what already existed at the company in order to test the payloads because the PyTest framework the API library was built on didn't like to play well with others. I first built out the simple GET requests, worked into the static(ish) payloads for POSTs, and set up simple setups for Approve/Reject endpoints. This is something that will be built out further in the future.</p>
+	</div>
+	{% endblock %}
+</body>
+</html>

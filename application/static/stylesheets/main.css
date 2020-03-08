@@ -218,3 +218,81 @@ ul.page_menu li a:active {
   background-color: #05668d;
   height: 4em;
 }
+
+/* error handling */
+.display_success {
+  background-color: #02C39A;
+}
+
+.display_error {
+  background-color: #d67c7c;
+}
+
+/* fade elements */
+.fade-full {
+  animation: fadeFull 10s ease-in-out 10s forwards;
+  -webkit-animation: fadeFull 10s ease-in-out 10s forwards;
+  -moz-animation: fadeFull 10s ease-in-out 10s forwards;
+  -o-animation: fadeFull 10s ease-in-out 10s forwards;
+  -ms-animation: fadeFull 10s ease-in-out 10s forwards;
+}
+
+@keyframes fadeFull {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+
+@-moz-keyframes fadeFull {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+
+@-webkit-keyframes fadeFull {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+
+@-o-keyframes fadeFull {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+
+@-ms-keyframes fadeFull {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+  to {
+    visibility: hidden;
+  }
+}

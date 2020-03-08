@@ -1,9 +1,15 @@
 """ Main router for the application """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from application.functions.contact_form import contact_form
+from utils_package.py_utils.logger import logger
 
 app = Flask(__name__, template_folder='static')
+app.secret_key = 'this_secret_key'
+
+# HTML Class Definitions
 set_current = 'current'
+set_error = 'display_error'
+set_success = 'display_success'
 
 
 # Home Page - Main Index
@@ -67,8 +73,15 @@ def contact_form_input():
     if request.method == 'POST':
         result = request.form
         response = contact_form.contact_form_submission(result['name'], result['email'], result['message'])
-        # TODO generate method to display error messaging
-        return render_template('pages/zz_sample_output.html', result=response)
+        logger.info('Form submission status code: ' + str(response['status_code']))
+        logger.info('Form submission display message: ' + response['display_message'])
+        if response['status_code'] == 201:
+            flash(response['display_message'])
+            return render_template('pages/contact_form.html', links_class=set_current,
+                                   message_display_class=set_success)
+        else:
+            flash(response['display_message'])
+            return render_template('pages/contact_form.html', links_class=set_current, message_display_class=set_error)
 
 
 if __name__ == '__main__':

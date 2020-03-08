@@ -49,7 +49,9 @@ class ContactForm(object):
         else:
             logger.error('There was an issue sending the contact form entry')
             logger.error('Code: %s | Display Message: %s | Full Validation: %s' % (code, display, response))
-        return code, display, response
+        return {'status_code': code,
+                'display_message': display,
+                'full_response': response}
 
     def regex_validations(self, name, email, message):
         """

@@ -9,12 +9,12 @@
 	{% block content %}
 	<div class="content_body">
 		<h1>Resume</h1>
-		<p>For all information regarding my professional experience as well as any information regarding the projects that I've been working on.  
+		<p>For all information regarding my professional experience as well as any information regarding the projects that I&#39;ve been working on.  
 			<ul class="page_menu">
 				<li><a href="{{ url_for('resume_download_page') }}" title="view and download resume">Resume Download</a> - view and download my full official resume</li>
 				<li><a href="{{ url_for('projects_page') }}" title="all projects">Projects</a> - a list of the projects that I have been working on with descriptions and github links</li>
 				<li><a href="{{ url_for('work_exp_page') }}" title="work experience more in depth">Work Experience</a> - in depth review of my work experience</li>
-				<li><a href="" title="technical experience">Technical Experience</a> - experience I have with different technologies and how I've implemented them </li>
+				<li><a href="{{ url_for('tech_exp_page') }}" title="technical experience">Technical Experience</a> - experience I have with different technologies and how I&#39;ve implemented them </li>
 			</ul>
 		</p>
 	</div>

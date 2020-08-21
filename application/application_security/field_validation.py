@@ -1,6 +1,6 @@
 """ Different validation rules that are eligible to test against fields """
 import re
-from utils_package.data_controller.json_config import JSONConfig
+from application.base_configurations import VARS
 
 
 class GeneralRegexValidations:
@@ -8,7 +8,11 @@ class GeneralRegexValidations:
 
     def __init__(self):
         """ Initialize class variables """
-        self.regex_configs = JSONConfig().get_email_controller_config('regex')
+        self.regex_configs = {
+            'email': VARS['field_validation.regex.email'],
+            'names': VARS['field_validation.regex.names'],
+            'special_char_exclusion': VARS['field_validation.regex.spec_char']
+        }
 
     def email_validation(self, email_string):
         """
@@ -29,7 +33,7 @@ class GeneralRegexValidations:
     def message_validation(self, message_string):
         """
         Validate a message string input is valid
-        :param message_string: Input string to be evaluated as a paragragh message
+        :param message_string: Input string to be evaluated as a paragraph message
         :return: Validation boolean
         """
         return self.__regex_validate(self.regex_configs['special_char_exclusion'], message_string)

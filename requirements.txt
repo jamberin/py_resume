@@ -2,3 +2,4 @@ jbtech-utils-package
 email-controller
 flask
 psycopg2
+requests

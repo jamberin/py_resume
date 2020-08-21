@@ -1,8 +1,13 @@
 <html>
 <head>
+	<link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='resources/icon/icon.ico') }}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='resources/icon/apple-touch-icon.png') }}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='resources/icon/icon-32x32.png') }}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='resources/icon/icon-16x16.png') }}">
+	<link rel="manifest" href="{{ url_for('static', filename='resources/icon/site.webmanifest') }}">
+	<link href="{{ url_for('static', filename='stylesheets/main.css') }}" rel="stylesheet" />
 	<meta charset="utf-8"/>
 	<meta name="James Beringer" content="Resume Site"/>
-	<link href="{{ url_for('static', filename='stylesheets/main.css') }}" rel="stylesheet" />
 </head>
 <body>
 	<nav class="cf">
@@ -21,9 +26,9 @@
 				<li><a href="{{ url_for('links_landing_page') }}" title="contact us" class="{{ links_class }}">Links</a>
 					<ul class="submenu">
 						<li><a href="{{ url_for('contact_form_page') }}" title="contact my email">Contact</a></li>
-						<li><a href="" title="see my github">Github</a></li>
-						<li><a href="" title="link to my blog">Blog</a></li>
-						<li><a href="" title="my linkedin profile">LinkedIn</a></li>
+						<li><a href="https://github.com/jamberin" title="see my github">Github</a></li>
+						<li><a href="https://medium.com/@jamberin" title="link to my blog">Blog</a></li>
+						<li><a href="https://www.linkedin.com/in/jamberin" title="my linkedin profile">LinkedIn</a></li>
 					</ul>
 				</li>
 				<li><a href="{{ url_for('about_landing_page') }}" title="more about me" class="{{ about_class }}">About Me</a></li>
@@ -34,7 +39,7 @@
 	{% endblock %}
 	<div class="footer_container">
 		<nav class="footer">
-			<p>&copy; 2019 James Beringer | <a href="mailto:jamberin@gmail.com">jamberin@gmail.com</a></p>
+			<p>&copy; 2020 James Beringer | <a href="mailto:jamberin@gmail.com">jamberin@gmail.com</a></p>
 		</nav>
 	</div>
 </body>

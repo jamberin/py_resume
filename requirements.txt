@@ -3,3 +3,4 @@ email-controller
 flask
 psycopg2
 requests
+cryptography

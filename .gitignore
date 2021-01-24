@@ -131,3 +131,6 @@ dmypy.json
 # PyCharm Custom Ignores
 .DS_Store
 .idea
+
+# Custom package test pages
+zz_*.html

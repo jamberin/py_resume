@@ -1,8 +1,9 @@
 """ Validation rules for captcha """
 from utils_package.data_controller.scripts.captcha_cookie.site_captcha_results_queries import SiteCaptchaResultsWriter
+from utils_package.py_utils.encryption_tool import encode, decode
 from utils_package.py_utils.logger import logger
 from datetime import datetime, timedelta
-from cryptography.fernet import Fernet
+import json
 
 
 class CaptchaValidation:
@@ -10,7 +11,7 @@ class CaptchaValidation:
     def __init__(self, encryption_key=None):
         """ Initialize class variables """
         self.captcha_writer = SiteCaptchaResultsWriter()
-        self.encryption = Fernet(encryption_key)
+        self.key = bytes(encryption_key, 'utf-8')
 
     def new_cookie_captcha(self, ipaddress, score):
         """
@@ -49,7 +50,7 @@ class CaptchaValidation:
             logger.error('Issue updating record in database')
 
         # Encrypt the cookie
-        cookie = self.encryption.encrypt(bytes(str(cookie), 'utf-8'))
+        cookie = encode(self.key, bytes(str(cookie), 'utf-8'))
 
         # Return cookie
         return cookie
@@ -64,12 +65,13 @@ class CaptchaValidation:
             dict containing boolean of success or failure, along with error code and message
         """
         # Decrypt the cookie
-        cookie_data = dict(self.encryption.decrypt(cookie_data))
+        cookie_data = decode(self.key, cookie_data).decode()
+        cookie_data = eval(cookie_data)
 
         # Validate the datetime
         if cookie_data['expiration_date'] < str(datetime.now().timestamp()):
             logger.info('Cookie expired, create new one')
-            return 407, 'New cookie required'
+            return 302, 'New cookie required'
 
         # Validate the captcha score
         if float(cookie_data['score']) <= 0.3:

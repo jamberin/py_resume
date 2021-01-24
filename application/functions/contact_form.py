@@ -39,7 +39,9 @@ class ContactForm(object):
                 'violation_reasons': validations,
                 'display_message': 'Looks like there was an issue with your request. Make sure the fields are correct.'
             }
-            return code, display, response
+            return {'status_code': code,
+                    'display_message': display,
+                    'full_response': response}
         code, display, response = self.contact_handler.contact_form_entry(name, email, message)
         logger.info('Contact submission transmitted ')
         if code == 201:

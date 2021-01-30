@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT}}
           script: ./resume-site-deployer.sh
-      - name: Final validation
+#       - name: Final validation
         # TODO Add functionality to hit the validation endpoint to check the git hash
 
 

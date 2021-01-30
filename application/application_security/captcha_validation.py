@@ -3,7 +3,6 @@ from utils_package.data_controller.scripts.captcha_cookie.site_captcha_results_q
 from utils_package.py_utils.encryption_tool import encode, decode
 from utils_package.py_utils.logger import logger
 from datetime import datetime, timedelta
-import json
 
 
 class CaptchaValidation:

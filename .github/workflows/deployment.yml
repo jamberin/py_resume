@@ -31,11 +31,10 @@ jobs:
         uses: appleboy/ssh-action@v0.1.4
         with:
           debug: true
-          host: ${{ secrets.USER_HOST }}
+          host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
-          port: ${{ secrets.PORT_HOST}}
-          fingerprint: ${{ secrets.HOST_FINGERPRINT }}
+          port: ${{ secrets.PORT_HOST }}
           script: |
            whoami
            pwd 

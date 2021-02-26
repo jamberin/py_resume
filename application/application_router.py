@@ -178,6 +178,11 @@ def contact_form_input():
 
         return template
 
+# # Status Endpoint
+# @app.route('/status')
+# def status_page():
+#     """ Endpoint to return the application status """
+#
 
 if __name__ == '__main__':
     app.run(debug=True)

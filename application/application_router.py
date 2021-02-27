@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, flash, make_response
 from utils_package.py_utils.logger import logger
 
 from application.functions.contact_form import contact_form
+from application.functions.application_status import ApplicationStatus
 from application.application_security.captcha_validation import CaptchaValidation
 
 from application.base_configurations import VARS
@@ -24,6 +25,7 @@ captcha_secret_key = VARS['captcha.keys.secret_key']
 
 # Application Imports
 captcha_validation = CaptchaValidation(app.secret_key)
+app_status = ApplicationStatus()
 
 
 ## TEST PORTION
@@ -178,11 +180,14 @@ def contact_form_input():
 
         return template
 
-# # Status Endpoint
-# @app.route('/status')
-# def status_page():
-#     """ Endpoint to return the application status """
-#
+
+# Status Endpoint
+@app.route('/status')
+def status_page():
+    """ Endpoint to return the application status """
+    content = app_status.generate_status_response()
+    return content
+
 
 if __name__ == '__main__':
     app.run(debug=True)

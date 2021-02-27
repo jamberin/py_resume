@@ -7,9 +7,10 @@
 > Generate Page Response
 > > Build appropriate content
 """
-from utils_package.py_utils.logger import logger
+from datetime import datetime
 from utils_package.data_controller.scripts.health_check import HealthCheck
 from git import Repo
+import json
 
 
 def git_info():
@@ -31,8 +32,8 @@ class ApplicationStatus(object):
             dict of users and statuses
         """
         response = {
-            'reader': self.db_health_check.validate_reader_up(),
-            'writer': self.db_health_check.validate_writer_up()
+            'reader': self.db_health_check.validate_reader_up()[1][0][0],
+            'writer': self.db_health_check.validate_writer_up()[1][0][0]
         }
         return response
 
@@ -43,17 +44,34 @@ class ApplicationStatus(object):
             dict of the content to be displayed on the page
         """
         # Relevant git information
-        branch_name, commit = git_info()
+        branch_name, commit_info = git_info()
+        commit = {
+            'author': {
+                'name': commit_info.committer.name,
+                'email': commit_info.committer.email
+            },
+            'hash_info': {
+                'active': commit_info.hexsha,
+                'parent': commit_info.parents[0].hexsha
+            },
+            'commit_info': {
+                'message': commit_info.summary,
+                'date': datetime.strftime(commit_info.authored_datetime, '%c')
+            }
+        }
 
         # DB status info
         db_status = self.application_db_health_check()
 
         # Build the dictionary
         response = {
-            'branch_info': branch_name,
-            'commit': commit.name,
+            'branch_name': branch_name,
+            'commit': commit,
             'db_info': db_status
         }
+
+        # Convert to JSON
+        response = json.dumps(response)
 
         # Return the response
         return response

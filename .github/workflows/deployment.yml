@@ -22,7 +22,7 @@ jobs:
       id: vars
       run: |
         echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
-        echo ::set-output name=BRANCH::'release/py_resume-$${GITHUB_REF#refs/tags/}'
+        echo ::set-output name=BRANCH::'release/py_resume-${GITHUB_REF#refs/tags/}'
     - name: Create Branch
       uses: peterjgrainger/action-create-branch@v2.0.1
       env:

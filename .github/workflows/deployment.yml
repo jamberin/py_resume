@@ -28,7 +28,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        branch: 'release/py_resume-${{ steps.vars.outputs.TAG }}'
+        branch: 'deploy/py_resume-${{ steps.vars.outputs.TAG }}'
     - name: Run SSH commands on server
       uses: appleboy/ssh-action@v0.1.4
       with:

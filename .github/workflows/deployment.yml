@@ -18,18 +18,17 @@ jobs:
  deploy-site:
    runs-on: ubuntu-latest
    steps:
-    - name: Set Variables
+    - name: Set Script Variables
       id: vars
       run: |
         echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
-        echo ::set-output name=BRANCH::'deploy/py_resume-${GITHUB_REF#refs/tags/}'
     - name: Create Branch
       uses: peterjgrainger/action-create-branch@v2.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         branch: 'deploy/py_resume-${{ steps.vars.outputs.TAG }}'
-    - name: Run SSH commands on server
+    - name: Run Remote Commands
       uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.SERVER_HOST }}
@@ -37,7 +36,16 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: ${{ secrets.PORT_HOST }}
         script: ./resume-site-deployer.sh -s ${{ secrets.SUDO_PASSWORD }} -b 'deploy/py_resume-${{ steps.vars.outputs.TAG }}'
-#       - name: Final validation
-        # TODO Add functionality to hit the validation endpoint to check the git hash
+    - name: Post-Deploy Vars
+      id: post-deploy
+      run: |
+        echo ::set-output name=STATUS::$(curl http://beringersolutions.com/status)
+        echo ::set-output name=BRANCH::deploy/py_resume-${{ steps.vars.outputs.TAG }}
+    - name: Post-Deploy Validation
+      run: |
+        if grep -q "${{ steps.post-deploy.outputs.BRANCH }}" <<< '${{ steps.post-deploy.outputs.STATUS }}'; then echo "Version Match"; exit 0; else echo "Versions do not match"; exit 1; fi
+
+
+      
 
      

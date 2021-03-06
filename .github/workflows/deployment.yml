@@ -15,28 +15,28 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # TODO Generate workflow to test the project prior to deploy
-#  sync-branch:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Merge to release branch
-#        uses: devmasx/merge-branch@v1.3.1
-#        with:
-#          type: now
-#          from_branch: master
-#          target_branch: release
-#          github_token: ${{ github.token }}
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run SSH commands on server
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: ${{ secrets.PORT_HOST }}
-          script: ./resume-site-deployer.sh -s ${{ secrets.SUDO_PASSWORD }}
+ deploy-site:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Set Variables
+      id: vars
+      run: |
+        echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
+        echo ::set-output name=BRANCH::'release/py_resume-$${GITHUB_REF#refs/tags/}'
+    - name: Create Branch
+      uses: peterjgrainger/action-create-branch@v2.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        branch: ${{ steps.vars.outputs.BRANCH }}
+    - name: Run SSH commands on server
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT_HOST }}
+        script: ./resume-site-deployer.sh -s ${{ secrets.SUDO_PASSWORD }} -b ${{ steps.vars.outputs.BRANCH }}
 #       - name: Final validation
         # TODO Add functionality to hit the validation endpoint to check the git hash
 

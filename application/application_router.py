@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, flash, make_response
 from utils_package.py_utils.logger import logger
 
 from application.functions.contact_form import contact_form
+from application.functions.application_status import ApplicationStatus
 from application.application_security.captcha_validation import CaptchaValidation
 
 from application.base_configurations import VARS
@@ -24,44 +25,45 @@ captcha_secret_key = VARS['captcha.keys.secret_key']
 
 # Application Imports
 captcha_validation = CaptchaValidation(app.secret_key)
+app_status = ApplicationStatus()
 
 
 ## TEST PORTION
 # Test Page
-@app.route('/test')
-def test_page():
-    return render_template('pages/zz_sample_output.html', site_key=captcha_site_key)
-
-
-@app.route('/handle', methods=['POST'])
-def lists():
-    parameters = request.form
-    ipaddress = request.headers.get('X-Forwarded-For', request.remote_addr)
-    recaptcha_passed = False
-    recaptcha_response = parameters.get('g-recaptcha-response')
-    try:
-        # recaptcha_secret = os.environ.get('RECAPTCHA_SECRET')
-        response = requests.post(f'https://www.google.com/recaptcha/api/siteverify?secret='
-                                 f'{captcha_secret_key}&response={recaptcha_response}').json()
-        recaptcha_passed = response.get('success')
-        logger.debug(f'test ipaddress: {ipaddress}')
-        # response.append({'real_ipaddress': ipaddress})
-
-    except Exception as e:
-        print(f"failed to get reCaptcha: {e}")
-        response = {
-            'error': e
-        }
-    finally:
-        cookie_content = {
-            'variable1': 'value1',
-            'variable2': 'value2'
-        }
-        # only way to handle the cookie is to handle it as make response
-        # render template generates the template as a string to be passed to the client
-        payload = make_response(render_template('pages/zz_test_data_output.html', result=response))
-        payload.set_cookie('beringersolutions', str(cookie_content))
-        return payload
+# @app.route('/test')
+# def test_page():
+#     return render_template('pages/zz_sample_output.html', site_key=captcha_site_key)
+#
+#
+# @app.route('/handle', methods=['POST'])
+# def lists():
+#     parameters = request.form
+#     ipaddress = request.headers.get('X-Forwarded-For', request.remote_addr)
+#     recaptcha_passed = False
+#     recaptcha_response = parameters.get('g-recaptcha-response')
+#     try:
+#         # recaptcha_secret = os.environ.get('RECAPTCHA_SECRET')
+#         response = requests.post(f'https://www.google.com/recaptcha/api/siteverify?secret='
+#                                  f'{captcha_secret_key}&response={recaptcha_response}').json()
+#         recaptcha_passed = response.get('success')
+#         logger.debug(f'test ipaddress: {ipaddress}')
+#         # response.append({'real_ipaddress': ipaddress})
+#
+#     except Exception as e:
+#         print(f"failed to get reCaptcha: {e}")
+#         response = {
+#             'error': e
+#         }
+#     finally:
+#         cookie_content = {
+#             'variable1': 'value1',
+#             'variable2': 'value2'
+#         }
+#         # only way to handle the cookie is to handle it as make response
+#         # render template generates the template as a string to be passed to the client
+#         payload = make_response(render_template('pages/zz_test_data_output.html', result=response))
+#         payload.set_cookie('beringersolutions', str(cookie_content))
+#         return payload
 
 
 # Home Page - Main Index
@@ -177,6 +179,14 @@ def contact_form_input():
             template.set_cookie('BS', cookie)
 
         return template
+
+
+# Status Endpoint
+@app.route('/status')
+def status_page():
+    """ Endpoint to return the application status """
+    content = app_status.generate_status_response()
+    return content
 
 
 if __name__ == '__main__':

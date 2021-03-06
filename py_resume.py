@@ -1,4 +1,4 @@
-from application.application_router import app as application
+from application.application_router import app
 
 if __name__ == '__main__':
-    application.run(port=5001)
+    app.run(port=5001)

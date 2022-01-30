@@ -71,114 +71,114 @@ app_status = ApplicationStatus()
 def home_page():
     return render_template('pages/index.html', home_class=set_current)
 
-
-# Landing Pages - Secondary Index
-@app.route('/resume')
-def resume_landing_page():
-    return render_template('pages/resume.html', resume_class=set_current)
-
-
-@app.route('/blog')
-def blog_landing_page():
-    return render_template('pages/blog.html', blog_class=set_current)
-
-
-@app.route('/links')
-def links_landing_page():
-    return render_template('pages/links.html', links_class=set_current)
-
-
-@app.route('/about')
-def about_landing_page():
-    return render_template('pages/about_me.html', about_class=set_current)
-
-
-# Sub-Pages - Tertiary Index
-# RESUME SUBPAGES
-@app.route('/resume/download')
-def resume_download_page():
-    return render_template('pages/resume_download.html', resume_class=set_current)
-
-
-@app.route('/resume/projects')
-def projects_page():
-    return render_template('pages/projects.html', resume_class=set_current)
-
-
-@app.route('/resume/work')
-def work_exp_page():
-    return render_template('pages/work_exp.html', resume_class=set_current)
-
-
-@app.route('/resume/tech')
-def tech_exp_page():
-    return render_template('pages/tech_exp.html', resume_class=set_current)
-
-
-# LINKS SUBPAGES
-@app.route('/links/contact')
-def contact_form_page():
-    return render_template('pages/contact_form.html', links_class=set_current, site_key=captcha_site_key, secret_key=captcha_secret_key)
-
-
-# APPLICATION INTEGRATION
-@app.route('/links/links_contact_send', methods=['POST'])
-def contact_form_input():
-    ipaddress = request.headers.get('X-Forwarded-For', request.remote_addr)
-    message_allowed = True
-    need_cookie = True
-    cookie = None
-    if request.method == 'POST':
-        form_result = request.form
-        if 'BS' in request.cookies:
-            resp_code, resp_message = captcha_validation.captcha_cookie_validation(request.cookies.get('BS'))
-            logger.info(f'Cookie validation response: {resp_code}: {resp_message}')
-            if resp_code == 401:
-                logger.warning('User previously was set with a score that is too low.')
-                logger.warning('Setting flag for message ineligible')
-                message_allowed = False
-                need_cookie = False
-            if resp_code == 200:
-                logger.info('User with valid cookie')
-                need_cookie = False
-        captcha_result = form_result.get('g-recaptcha-response')
-        if need_cookie:
-            try:
-                captcha_response = requests.post(f'https://www.google.com/recaptcha/api/siteverify?secret='
-                                                 f'{captcha_secret_key}&response={captcha_result}').json()
-                if captcha_response.get('success') is False:
-                    logger.error('reCAPTCHA failed...')
-                    message_allowed = False
-                else:
-                    logger.info('reCAPTCHA passed')
-                cookie = captcha_validation.new_cookie_captcha(ipaddress, captcha_response.get('score'))
-            except Exception as e:
-                logger.error(f'Failed to get reCAPTCHA: {e}')
-                flash('Totally our fault, seems like there was an error. '
-                      'Please reach out to beringersolutions@gmail.com directly')
-                return make_response(render_template('pages/contact_form.html', links_class=set_current,
-                                                     message_display_class=set_error))
-        if message_allowed:
-            response = contact_form.contact_form_submission(form_result['name'], form_result['email'],
-                                                            form_result['message'])
-            logger.info(f"Form submission status code: {str(response['status_code'])}")
-            logger.info(f"Form submission display message: {response['display_message']}")
-            if response['status_code'] == 201:
-                flash(response['display_message'])
-                template = make_response(render_template('pages/contact_form.html', links_class=set_current,
-                                                         message_display_class=set_success))
-            else:
-                flash(response['display_message'])
-                template = make_response(render_template('pages/contact_form.html', links_class=set_current,
-                                                         message_display_class=set_error))
-        else:
-            flash('reCAPTCHA failed. If this is a mistake, contact me directly beringersolutions@gmail.com')
-            template = make_response(render_template('pages/contact_form.html', links_class=set_current,
-                                                     message_display_class=set_error))
-        if cookie is not None:
-            template.set_cookie('BS', cookie)
-
-        return template
+#
+# # Landing Pages - Secondary Index
+# @app.route('/resume')
+# def resume_landing_page():
+#     return render_template('pages/resume.html', resume_class=set_current)
+#
+#
+# @app.route('/blog')
+# def blog_landing_page():
+#     return render_template('pages/blog.html', blog_class=set_current)
+#
+#
+# @app.route('/links')
+# def links_landing_page():
+#     return render_template('pages/links.html', links_class=set_current)
+#
+#
+# @app.route('/about')
+# def about_landing_page():
+#     return render_template('pages/about_me.html', about_class=set_current)
+#
+#
+# # Sub-Pages - Tertiary Index
+# # RESUME SUBPAGES
+# @app.route('/resume/download')
+# def resume_download_page():
+#     return render_template('pages/resume_download.html', resume_class=set_current)
+#
+#
+# @app.route('/resume/projects')
+# def projects_page():
+#     return render_template('pages/projects.html', resume_class=set_current)
+#
+#
+# @app.route('/resume/work')
+# def work_exp_page():
+#     return render_template('pages/work_exp.html', resume_class=set_current)
+#
+#
+# @app.route('/resume/tech')
+# def tech_exp_page():
+#     return render_template('pages/tech_exp.html', resume_class=set_current)
+#
+#
+# # LINKS SUBPAGES
+# @app.route('/links/contact')
+# def contact_form_page():
+#     return render_template('pages/contact_form.html', links_class=set_current, site_key=captcha_site_key, secret_key=captcha_secret_key)
+#
+#
+# # APPLICATION INTEGRATION
+# @app.route('/links/links_contact_send', methods=['POST'])
+# def contact_form_input():
+#     ipaddress = request.headers.get('X-Forwarded-For', request.remote_addr)
+#     message_allowed = True
+#     need_cookie = True
+#     cookie = None
+#     if request.method == 'POST':
+#         form_result = request.form
+#         if 'BS' in request.cookies:
+#             resp_code, resp_message = captcha_validation.captcha_cookie_validation(request.cookies.get('BS'))
+#             logger.info(f'Cookie validation response: {resp_code}: {resp_message}')
+#             if resp_code == 401:
+#                 logger.warning('User previously was set with a score that is too low.')
+#                 logger.warning('Setting flag for message ineligible')
+#                 message_allowed = False
+#                 need_cookie = False
+#             if resp_code == 200:
+#                 logger.info('User with valid cookie')
+#                 need_cookie = False
+#         captcha_result = form_result.get('g-recaptcha-response')
+#         if need_cookie:
+#             try:
+#                 captcha_response = requests.post(f'https://www.google.com/recaptcha/api/siteverify?secret='
+#                                                  f'{captcha_secret_key}&response={captcha_result}').json()
+#                 if captcha_response.get('success') is False:
+#                     logger.error('reCAPTCHA failed...')
+#                     message_allowed = False
+#                 else:
+#                     logger.info('reCAPTCHA passed')
+#                 cookie = captcha_validation.new_cookie_captcha(ipaddress, captcha_response.get('score'))
+#             except Exception as e:
+#                 logger.error(f'Failed to get reCAPTCHA: {e}')
+#                 flash('Totally our fault, seems like there was an error. '
+#                       'Please reach out to beringersolutions@gmail.com directly')
+#                 return make_response(render_template('pages/contact_form.html', links_class=set_current,
+#                                                      message_display_class=set_error))
+#         if message_allowed:
+#             response = contact_form.contact_form_submission(form_result['name'], form_result['email'],
+#                                                             form_result['message'])
+#             logger.info(f"Form submission status code: {str(response['status_code'])}")
+#             logger.info(f"Form submission display message: {response['display_message']}")
+#             if response['status_code'] == 201:
+#                 flash(response['display_message'])
+#                 template = make_response(render_template('pages/contact_form.html', links_class=set_current,
+#                                                          message_display_class=set_success))
+#             else:
+#                 flash(response['display_message'])
+#                 template = make_response(render_template('pages/contact_form.html', links_class=set_current,
+#                                                          message_display_class=set_error))
+#         else:
+#             flash('reCAPTCHA failed. If this is a mistake, contact me directly beringersolutions@gmail.com')
+#             template = make_response(render_template('pages/contact_form.html', links_class=set_current,
+#                                                      message_display_class=set_error))
+#         if cookie is not None:
+#             template.set_cookie('BS', cookie)
+#
+#         return template
 
 
 # Status Endpoint
@@ -190,4 +190,4 @@ def status_page():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5003)
